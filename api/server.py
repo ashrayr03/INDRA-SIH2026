@@ -36,7 +36,10 @@ from solver.qp_solver import QPSolver
 from solver.presolve import Presolve
 from demos.refinery_demos import get_all_demos
 
-app = Flask(__name__, static_folder="../web", static_url_path="")
+_HERE = os.path.dirname(os.path.abspath(__file__))
+_WEB_DIR = os.path.join(_HERE, "..", "web")
+
+app = Flask(__name__, static_folder=_WEB_DIR, static_url_path="")
 CORS(app)
 
 # ---- Shared solve log for SSE ----
