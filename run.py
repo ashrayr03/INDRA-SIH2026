@@ -72,9 +72,10 @@ def run_quick_test():
 def launch_server():
     """Launch Flask server."""
     from api.server import app
-    print("\n[INDRA] Starting web server on http://localhost:5050")
-    print("  Open your browser to: http://localhost:5050\n")
-    app.run(host="0.0.0.0", port=5050, debug=False, use_reloader=False)
+    port = int(os.environ.get("PORT", 5050))
+    print(f"\n[INDRA] Starting web server on http://0.0.0.0:{port}")
+    print(f"  Open your browser to: http://localhost:{port}\n")
+    app.run(host="0.0.0.0", port=port, debug=False, use_reloader=False)
 
 
 if __name__ == "__main__":
