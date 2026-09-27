@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INDRA — Indigenous Optimization Solver | MRPL SIH 2026</title>
+  <meta name="description" content="INDRA: India's sovereign GPU-accelerated mathematical optimization solver for LP, MILP, and QP — built from scratch for Indian refinery, energy, and industrial applications." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- BACKGROUND EFFECTS -->
+<!-- ============================================================ -->
+<div class="bg-grid"></div>
+<div class="bg-orb orb-1"></div>
+<div class="bg-orb orb-2"></div>
+<div class="bg-orb orb-3"></div>
+
+<!-- ============================================================ -->
+<!-- NAVBAR -->
+<!-- ============================================================ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-brand">
+    <div class="nav-logo">
+      <span class="logo-char">ॐ</span>
+    </div>
+    <div class="nav-title">
+      <span class="brand-name">INDRA</span>
+      <span class="brand-sub">Solver v0.1</span>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#hero" class="nav-link active" id="nav-home">Home</a>
+    <a href="#algorithms" class="nav-link" id="nav-algo">Algorithms</a>
+    <a href="#playground" class="nav-link" id="nav-playground">Playground</a>
+    <a href="#demos" class="nav-link" id="nav-demos">Refinery Demos</a>
+    <a href="#benchmark" class="nav-link" id="nav-bench">Benchmarks</a>
+  </div>
+  <div class="nav-status">
+    <div class="status-dot" id="server-dot"></div>
+    <span id="server-status-text">Connecting…</span>
+    <div class="gpu-badge" id="gpu-badge">
+      <span class="gpu-icon">⚡</span>
+      <span id="gpu-text">GPU</span>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================ -->
+<!-- HERO -->
+<!-- ============================================================ -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-flag">🇮🇳</span>
+      <span>SIH 2026 · PS SIH26119 · MRPL</span>
+    </div>
+    <h1 class="hero-title">
+      <span class="title-line">India's Sovereign</span>
+      <span class="title-line gradient-text">Optimization Engine</span>
+    </h1>
+    <p class="hero-desc">
+      INDRA — <em>Indigenous Numerical Decision-making &amp; Resource Allocator</em> — 
+      is a GPU-accelerated mathematical optimization solver built from scratch. 
+      LP · MILP · QP · PDHG · Branch-and-Cut. No CPLEX. No Gurobi. No Xpress.
+    </p>
+    <div class="hero-pills">
+      <div class="pill pill-blue"><span>Revised Simplex</span></div>
+      <div class="pill pill-purple"><span>Mehrotra IPM</span></div>
+      <div class="pill pill-green"><span>PDHG (GPU)</span></div>
+      <div class="pill pill-orange"><span>Branch &amp; Cut</span></div>
+      <div class="pill pill-pink"><span>ADMM QP</span></div>
+      <div class="pill pill-cyan"><span>Gomory Cuts</span></div>
+    </div>
+    <div class="hero-actions">
+      <button class="btn btn-primary" id="hero-demo-btn" onclick="scrollToSection('playground')">
+        <span class="btn-icon">▶</span>
+        Try Playground
+      </button>
+      <button class="btn btn-secondary" onclick="scrollToSection('demos')">
+        <span class="btn-icon">🏭</span>
+        Refinery Demos
+      </button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-val" id="stat-vars">1M+</div>
+        <div class="stat-label">Variables</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="stat-algos">5</div>
+        <div class="stat-label">Algorithms</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">0</div>
+        <div class="stat-label">License Cost</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">∞</div>
+        <div class="stat-label">Sovereignty</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <canvas id="hero-canvas" width="500" height="500"></canvas>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- ARCHITECTURE OVERVIEW -->
+<!-- ============================================================ -->
+<section class="section" id="algorithms">
+  <div class="section-header">
+    <div class="section-badge">Core Engine</div>
+    <h2 class="section-title">Algorithm Suite</h2>
+    <p class="section-sub">Each algorithm built from mathematical foundations — no wrapper, no black box.</p>
+  </div>
+
+  <div class="algo-grid">
+    <div class="algo-card" data-algo="simplex">
+      <div class="algo-icon">📐</div>
+      <div class="algo-type">LP Solver</div>
+      <h3 class="algo-name">Revised Simplex</h3>
+      <p class="algo-desc">
+        Two-phase revised simplex with Dantzig/Bland pivot rules, 
+        LU factorization for numerical stability, 
+        perturbation for degeneracy handling.
+      </p>
+      <div class="algo-tags">
+        <span class="tag">Phase I/II</span>
+        <span class="tag">LU Factor</span>
+        <span class="tag">Anti-cycling</span>
+      </div>
+      <div class="algo-metric">
+        <span class="metric-label">Best for</span>
+        <span class="metric-val">Small-Medium LP</span>
+      </div>
+    </div>
+
+    <div class="algo-card featured" data-algo="ipm">
+      <div class="algo-featured-badge">★ Recommended</div>
+      <div class="algo-icon">🎯</div>
+      <div class="algo-type">LP/QP Solver</div>
+      <h3 class="algo-name">Mehrotra IPM</h3>
+      <p class="algo-desc">
+        Primal-Dual Interior Point with Predictor-Corrector. 
+        Cholesky normal equations, equilibration scaling,
+        the same algorithm core as commercial solvers.
+      </p>
+      <div class="algo-tags">
+        <span class="tag">Predictor-Corrector</span>
+        <span class="tag">Cholesky</span>
+        <span class="tag">Equilibration</span>
+      </div>
+      <div class="algo-metric">
+        <span class="metric-label">Best for</span>
+        <span class="metric-val">Medium-Large LP/QP</span>
+      </div>
+    </div>
+
+    <div class="algo-card gpu-card" data-algo="pdhg">
+      <div class="algo-gpu-badge">⚡ GPU</div>
+      <div class="algo-icon">🚀</div>
+      <div class="algo-type">LP/QP Solver</div>
+      <h3 class="algo-name">PDHG</h3>
+      <p class="algo-desc">
+        Primal-Dual Hybrid Gradient (Chambolle-Pock). 
+        GPU-accelerated via CuPy. Adaptive restart,
+        spectral step-size. State-of-the-art for large sparse LP.
+      </p>
+      <div class="algo-tags">
+        <span class="tag">GPU/CuPy</span>
+        <span class="tag">Adaptive Restart</span>
+        <span class="tag">Spectral Steps</span>
+      </div>
+      <div class="algo-metric">
+        <span class="metric-label">Best for</span>
+        <span class="metric-val">Very Large LP</span>
+      </div>
+    </div>
+
+    <div class="algo-card" data-algo="bnb">
+      <div class="algo-icon">🌳</div>
+      <div class="algo-type">MILP Solver</div>
+      <h3 class="algo-name">Branch &amp; Cut</h3>
+      <p class="algo-desc">
+        Best-first Branch-and-Bound with Gomory fractional cuts, 
+        pseudo-cost branching, rounding heuristics, 
+        LP relaxation at every node.
+      </p>
+      <div class="algo-tags">
+        <span class="tag">Gomory Cuts</span>
+        <span class="tag">Best-First</span>
+        <span class="tag">Primal Heuristic</span>
+      </div>
+      <div class="algo-metric">
+        <span class="metric-label">Best for</span>
+        <span class="metric-val">MILP / Integer Prog.</span>
+      </div>
+    </div>
+
+    <div class="algo-card" data-algo="admm">
+      <div class="algo-icon">⚖️</div>
+      <div class="algo-type">QP Solver</div>
+      <h3 class="algo-name">ADMM</h3>
+      <p class="algo-desc">
+        Alternating Direction Method of Multipliers for convex QP. 
+        Adaptive rho, warm-starting, Active Set for small QPs.
+        Distributed decomposition ready.
+      </p>
+      <div class="algo-tags">
+        <span class="tag">Adaptive ρ</span>
+        <span class="tag">Active Set</span>
+        <span class="tag">Distributed</span>
+      </div>
+      <div class="algo-metric">
+        <span class="metric-label">Best for</span>
+        <span class="metric-val">QP / MIQP</span>
+      </div>
+    </div>
+
+    <div class="algo-card presolve-card" data-algo="presolve">
+      <div class="algo-icon">🔬</div>
+      <div class="algo-type">Preprocessor</div>
+      <h3 class="algo-name">Presolve</h3>
+      <p class="algo-desc">
+        Problem reduction before solving: fixed variable elimination, 
+        bound tightening, empty row detection, dominated column removal. 
+        Applied iteratively.
+      </p>
+      <div class="algo-tags">
+        <span class="tag">Bound Tightening</span>
+        <span class="tag">Fixed Vars</span>
+        <span class="tag">Postsolve</span>
+      </div>
+      <div class="algo-metric">
+        <span class="metric-label">Reduction</span>
+        <span class="metric-val">Up to 40%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SOLVER PLAYGROUND -->
+<!-- ============================================================ -->
+<section class="section" id="playground">
+  <div class="section-header">
+    <div class="section-badge">Interactive</div>
+    <h2 class="section-title">Solver Playground</h2>
+    <p class="section-sub">Formulate and solve custom LP/MILP/QP problems against the INDRA engine.</p>
+  </div>
+
+  <div class="playground-layout">
+    <!-- LEFT: Problem Input -->
+    <div class="playground-input">
+      <div class="panel">
+        <div class="panel-header">
+          <h3 class="panel-title">📋 Problem Definition</h3>
+          <div class="example-select-wrap">
+            <select id="example-select" class="example-select" onchange="loadExample(this.value)">
+              <option value="">Load Example…</option>
+              <option value="simple_lp">Simple LP (2 vars)</option>
+              <option value="diet_lp">Diet Problem (LP)</option>
+              <option value="knapsack">0-1 Knapsack (MILP)</option>
+              <option value="portfolio_qp">Portfolio QP</option>
+              <option value="transport_lp">Transportation LP</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Problem Name</label>
+          <input type="text" id="prob-name" class="form-input" value="my_problem" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Problem Type</label>
+            <select id="prob-type" class="form-select" onchange="onTypeChange()">
+              <option value="LP">LP — Linear Programming</option>
+              <option value="MILP">MILP — Mixed Integer LP</option>
+              <option value="QP">QP — Quadratic Programming</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Sense</label>
+            <select id="prob-sense" class="form-select">
+              <option value="minimize">Minimize</option>
+              <option value="maximize">Maximize</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            Objective vector <code>c</code>
+            <span class="form-hint">(comma-separated, e.g. -1,-2,0)</span>
+          </label>
+          <input type="text" id="vec-c" class="form-input mono" placeholder="-1, -2" value="-1, -2" />
+        </div>
+
+        <div class="form-group" id="q-group" style="display:none;">
+          <label class="form-label">
+            Quadratic matrix <code>Q</code>
+            <span class="form-hint">(rows separated by ';')</span>
+          </label>
+          <textarea id="mat-q" class="form-textarea mono" rows="3" placeholder="2,0;0,2"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            Inequality constraints <code>A_ub · x ≤ b_ub</code>
+            <span class="form-hint">(each row: coefficients | rhs)</span>
+          </label>
+          <textarea id="mat-aub" class="form-textarea mono" rows="4"
+            placeholder="1, 1 | 4&#10;1, 0 | 3&#10;0, 1 | 3">1, 1 | 4
+1, 0 | 3
+0, 1 | 3</textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            Equality constraints <code>A_eq · x = b_eq</code>
+            <span class="form-hint">(each row: coefficients | rhs)</span>
+          </label>
+          <textarea id="mat-aeq" class="form-textarea mono" rows="2" placeholder="(optional)"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Lower bounds <code>lb</code></label>
+            <input type="text" id="vec-lb" class="form-input mono" placeholder="0,0" value="0,0" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Upper bounds <code>ub</code></label>
+            <input type="text" id="vec-ub" class="form-input mono" placeholder="inf,inf (default)" />
+          </div>
+        </div>
+
+        <div class="form-group" id="intvar-group" style="display:none;">
+          <label class="form-label">
+            Integer variable indices
+            <span class="form-hint">(0-indexed, comma-separated)</span>
+          </label>
+          <input type="text" id="vec-intvars" class="form-input mono" placeholder="0,1" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Algorithm</label>
+            <select id="algo-select" class="form-select">
+              <option value="auto">Auto-select</option>
+              <option value="simplex">Revised Simplex</option>
+              <option value="ipm">Mehrotra IPM</option>
+              <option value="pdhg">PDHG (GPU)</option>
+              <option value="bnb">Branch &amp; Cut</option>
+              <option value="qp_admm">ADMM (QP)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tolerance</label>
+            <input type="text" id="param-tol" class="form-input mono" value="1e-8" />
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-full" id="solve-btn" onclick="solveProblem()">
+          <span class="btn-icon">▶</span>
+          Solve with INDRA
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT: Results -->
+    <div class="playground-output">
+      <div class="panel result-panel" id="result-panel">
+        <div class="panel-header">
+          <h3 class="panel-title">📊 Solution</h3>
+          <div class="result-badge" id="result-badge"></div>
+        </div>
+
+        <!-- Metrics row -->
+        <div class="metrics-row" id="metrics-row" style="display:none;">
+          <div class="metric-card">
+            <div class="metric-icon">🎯</div>
+            <div class="metric-val" id="res-obj">—</div>
+            <div class="metric-lbl">Objective</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon">⏱️</div>
+            <div class="metric-val" id="res-time">—</div>
+            <div class="metric-lbl">Solve Time</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon">🔄</div>
+            <div class="metric-val" id="res-iter">—</div>
+            <div class="metric-lbl">Iterations</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon">📏</div>
+            <div class="metric-val" id="res-gap">—</div>
+            <div class="metric-lbl">Gap</div>
+          </div>
+        </div>
+
+        <!-- Solution vector visualization -->
+        <div id="solution-viz" style="display:none;">
+          <div class="section-label">Solution Vector x*</div>
+          <div class="x-bars" id="x-bars"></div>
+        </div>
+
+        <!-- Solver log -->
+        <div class="log-section">
+          <div class="section-label">Solver Log</div>
+          <div class="log-box" id="solver-log">
+            <div class="log-placeholder">Run INDRA to see output…</div>
+          </div>
+        </div>
+
+        <!-- Feasibility chart -->
+        <canvas id="feasibility-chart" height="200" style="display:none;"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- REFINERY DEMOS -->
+<!-- ============================================================ -->
+<section class="section" id="demos">
+  <div class="section-header">
+    <div class="section-badge">🏭 Industrial Use Cases</div>
+    <h2 class="section-title">Refinery Optimization Demos</h2>
+    <p class="section-sub">Real-world MRPL operational problems — the exact use cases this solver is built for.</p>
+  </div>
+
+  <div class="demos-grid" id="demos-grid">
+    <!-- Loaded dynamically -->
+    <div class="demo-loading">Loading demo problems…</div>
+  </div>
+
+  <!-- Demo result panel -->
+  <div class="demo-result-panel" id="demo-result-panel" style="display:none;">
+    <button class="close-btn" onclick="closeDemoResult()">✕</button>
+    <div class="demo-result-inner" id="demo-result-inner"></div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- BENCHMARKS -->
+<!-- ============================================================ -->
+<section class="section" id="benchmark">
+  <div class="section-header">
+    <div class="section-badge">Performance</div>
+    <h2 class="section-title">Benchmark Results</h2>
+    <p class="section-sub">INDRA vs. industry standard solvers on representative problems.</p>
+  </div>
+
+  <div class="benchmark-layout">
+    <div class="bench-controls">
+      <button class="btn btn-primary" id="run-bench-btn" onclick="runBenchmark()">
+        <span class="btn-icon">🏁</span>
+        Run Live Benchmark
+      </button>
+      <p class="bench-note">Runs INDRA on all refinery demo problems and reports results.</p>
+    </div>
+
+    <div class="bench-results" id="bench-results">
+      <!-- Pre-populated illustrative data, overwritten by live run -->
+      <div class="bench-table-wrap">
+        <table class="bench-table" id="bench-table">
+          <thead>
+            <tr>
+              <th>Problem</th>
+              <th>Type</th>
+              <th>Variables</th>
+              <th>Integer</th>
+              <th>Algorithm</th>
+              <th>Status</th>
+              <th>Objective</th>
+              <th>Time (s)</th>
+              <th>Iterations</th>
+            </tr>
+          </thead>
+          <tbody id="bench-tbody">
+            <tr class="bench-placeholder">
+              <td colspan="9">Click "Run Live Benchmark" to execute INDRA on all demo problems</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bench-chart-wrap">
+        <canvas id="bench-chart" height="250"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comparison section -->
+  <div class="compare-section">
+    <h3 class="compare-title">Solver Architecture Comparison</h3>
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th class="indra-col">INDRA (This Project)</th>
+            <th>CPLEX</th>
+            <th>Gurobi</th>
+            <th>HiGHS</th>
+            <th>GLPK</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Built from Scratch (India)</td>
+            <td class="indra-col good">✓ Yes</td>
+            <td class="bad">✗</td>
+            <td class="bad">✗</td>
+            <td class="bad">✗</td>
+            <td class="bad">✗</td>
+          </tr>
+          <tr>
+            <td>License Cost</td>
+            <td class="indra-col good">₹ 0 (Free)</td>
+            <td class="bad">₹ 40L+/yr</td>
+            <td class="bad">₹ 30L+/yr</td>
+            <td class="ok">Open Source</td>
+            <td class="ok">Open Source</td>
+          </tr>
+          <tr>
+            <td>Source Code Visible</td>
+            <td class="indra-col good">✓ Full</td>
+            <td class="bad">✗ Closed</td>
+            <td class="bad">✗ Closed</td>
+            <td class="ok">✓ Yes</td>
+            <td class="ok">✓ Yes</td>
+          </tr>
+          <tr>
+            <td>GPU Acceleration (PDHG)</td>
+            <td class="indra-col good">✓ CuPy</td>
+            <td class="bad">✗</td>
+            <td class="bad">✗</td>
+            <td class="bad">✗</td>
+            <td class="bad">✗</td>
+          </tr>
+          <tr>
+            <td>Revised Simplex</td>
+            <td class="indra-col good">✓</td>
+            <td class="good">✓</td>
+            <td class="good">✓</td>
+            <td class="good">✓</td>
+            <td class="good">✓</td>
+          </tr>
+          <tr>
+            <td>Interior Point (Mehrotra)</td>
+            <td class="indra-col good">✓</td>
+            <td class="good">✓</td>
+            <td class="good">✓</td>
+            <td class="good">✓</td>
+            <td class="bad">✗</td>
+          </tr>
+          <tr>
+            <td>PDHG First-Order Method</td>
+            <td class="indra-col good">✓</td>
+            <td class="bad">✗</td>
+            <td class="bad">✗</td>
+            <td class="bad">✗</td>
+            <td class="bad">✗</td>
+          </tr>
+          <tr>
+            <td>Branch &amp; Cut (Gomory)</td>
+            <td class="indra-col good">✓</td>
+            <td class="good">✓ Advanced</td>
+            <td class="good">✓ Advanced</td>
+            <td class="good">✓</td>
+            <td class="ok">Basic</td>
+          </tr>
+          <tr>
+            <td>Refinery-specific demos</td>
+            <td class="indra-col good">✓ 6 demos</td>
+            <td class="bad">✗</td>
+            <td class="bad">✗</td>
+            <td class="bad">✗</td>
+            <td class="bad">✗</td>
+          </tr>
+          <tr>
+            <td>Sovereignty / Auditability</td>
+            <td class="indra-col good">✓ Full Indian control</td>
+            <td class="bad">✗ Foreign</td>
+            <td class="bad">✗ Foreign</td>
+            <td class="ok">Foreign OSS</td>
+            <td class="ok">Foreign OSS</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- FOOTER -->
+<!-- ============================================================ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-logo">ॐ INDRA</span>
+      <p class="footer-desc">
+        Indigenous Numerical Decision-making &amp; Resource Allocator<br />
+        Built for Smart India Hackathon 2026 — PS SIH26119 — MRPL
+      </p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <div class="footer-col-title">Algorithms</div>
+        <a href="#algorithms">Revised Simplex</a>
+        <a href="#algorithms">Mehrotra IPM</a>
+        <a href="#algorithms">PDHG (GPU)</a>
+        <a href="#algorithms">Branch &amp; Cut</a>
+        <a href="#algorithms">ADMM QP</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Use Cases</div>
+        <a href="#demos">Crude Blending</a>
+        <a href="#demos">CDU Scheduling</a>
+        <a href="#demos">Power Dispatch</a>
+        <a href="#demos">Supply Chain</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Resources</div>
+        <a href="/api/status" target="_blank">API Status</a>
+        <a href="/api/demos" target="_blank">Demo List</a>
+        <a href="#benchmark">Benchmarks</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>🇮🇳 Made in India · SIH 2026 · MRPL Challenge</span>
+    <span>INDRA v0.1.0 · All algorithms built from scratch</span>
+  </div>
+</footer>
+
+<!-- Loading overlay -->
+<div class="loading-overlay" id="loading-overlay" style="display:none;">
+  <div class="loading-content">
+    <div class="spinner"></div>
+    <div class="loading-text" id="loading-text">Solving…</div>
+    <div class="loading-sub" id="loading-sub"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
