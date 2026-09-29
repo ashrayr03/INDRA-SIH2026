@@ -3,7 +3,7 @@ services:
     name: indra-solver
     runtime: python
     buildCommand: pip install -r requirements.txt
-    startCommand: python run.py --server-only
+    startCommand: gunicorn api.server:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
     envVars:
       - key: PORT
         value: 10000

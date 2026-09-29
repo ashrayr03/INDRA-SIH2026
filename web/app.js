@@ -2,7 +2,7 @@
    INDRA Solver Dashboard — JavaScript
    ===================================================== */
 
-const API_BASE = "http://localhost:5050";
+const API_BASE = "";
 
 // ============================================================
 // UTILITY
